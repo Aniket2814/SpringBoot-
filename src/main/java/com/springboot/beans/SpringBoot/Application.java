@@ -10,6 +10,8 @@ public class Application implements CommandLineRunner {
 
 	@Autowired
 	Apple obj;
+	@Autowired
+	Apple obj1;
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 
@@ -17,7 +19,10 @@ public class Application implements CommandLineRunner {
 @Override
 public void run(String... args) throws Exception {
 	obj.eatApple();
-}
+obj1.eatApple();
+	System.out.println(obj);
+	System.out.println(obj1);
+	}
 
 
 
