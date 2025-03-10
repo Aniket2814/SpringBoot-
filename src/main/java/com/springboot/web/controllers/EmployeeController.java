@@ -15,14 +15,14 @@ public class EmployeeController {
 //}
 
     @GetMapping("{employeeId}")
-    public EmployeeDTO getEmployeeById(@PathVariable Long employeeId)
+    public EmployeeDTO getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
     {
-        return new EmployeeDTO(employeeId,"Aniket Rathore","AniketRathore911@gmail.com",22, LocalDate.now(),true);
+        return new EmployeeDTO(Id,"Aniket Rathore","AniketRathore911@gmail.com",22, LocalDate.now(),true);
 
     }
 
     @GetMapping()
-    public String getAllEmployees(@RequestParam(required = false) Integer age)
+    public String getAllEmployees(@RequestParam(required = false,name="inputAge") Integer age)
     {
         return "HI AGE" +age ;
     }
