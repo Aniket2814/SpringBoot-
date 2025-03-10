@@ -1,14 +1,12 @@
 package com.springboot.web.controllers;
 
 import com.springboot.web.dto.EmployeeDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
 @RestController
+@RequestMapping(path="/employees")
 public class EmployeeController {
 //    @GetMapping(path = "/getSecretMessage")
 //public String getSecretMessage()
@@ -16,14 +14,14 @@ public class EmployeeController {
 //    return "Seceret Message  :@347878y";
 //}
 
-    @GetMapping(path= "/employees/{employeeId}")
+    @GetMapping("{employeeId}")
     public EmployeeDTO getEmployeeById(@PathVariable Long employeeId)
     {
         return new EmployeeDTO(employeeId,"Aniket Rathore","AniketRathore911@gmail.com",22, LocalDate.now(),true);
 
     }
 
-    @GetMapping(path="/employees")
+    @GetMapping()
     public String getAllEmployees(@RequestParam(required = false) Integer age)
     {
         return "HI AGE" +age ;
