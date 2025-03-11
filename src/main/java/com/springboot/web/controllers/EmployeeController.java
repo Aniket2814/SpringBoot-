@@ -1,9 +1,12 @@
 package com.springboot.web.controllers;
 
 import com.springboot.web.dto.EmployeeDTO;
+import com.springboot.web.entities.EmployeeEntity;
+import com.springboot.web.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/employees")
@@ -14,24 +17,29 @@ public class EmployeeController {
 //    return "Seceret Message  :@347878y";
 //}
 
-    @GetMapping("{employeeId}")
-    public EmployeeDTO getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
-    {
-        return new EmployeeDTO(Id,"Aniket Rathore","AniketRathore911@gmail.com",22, LocalDate.now(),true);
+    private final EmployeeRepository employeeRepository;
 
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
-    @GetMapping()
-    public String getAllEmployees(@RequestParam(required = false,name="inputAge") Integer age)
+    @GetMapping("{employeeId}")
+    public EmployeeEntity getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
     {
-        return "HI AGE" +age ;
+        return employeeRepository.findById(Id).orElse(null);
+    }
+
+    @GetMapping
+    public List<EmployeeEntity> getAllEmployees(@RequestParam(required = false,name="inputAge") Integer age)
+    {
+        return employeeRepository.findAll() ;
     }
 
     @PostMapping
-    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployee)
+    public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity inputEmployee)
     {
-        inputEmployee.setId(100l);
-        return inputEmployee;
+
+        return employeeRepository.save(inputEmployee);
     }
 
 }
