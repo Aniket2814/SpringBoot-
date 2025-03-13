@@ -3,6 +3,7 @@ package com.springboot.web.controllers;
 import com.springboot.web.dto.EmployeeDTO;
 import com.springboot.web.entities.EmployeeEntity;
 import com.springboot.web.repositories.EmployeeRepository;
+import com.springboot.web.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,29 +18,30 @@ public class EmployeeController {
 //    return "Seceret Message  :@347878y";
 //}
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("{employeeId}")
-    public EmployeeEntity getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
+    public EmployeeDTO getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
     {
-        return employeeRepository.findById(Id).orElse(null);
+
+        return employeeService.getEmployeeById(Id);
     }
 
     @GetMapping
-    public List<EmployeeEntity> getAllEmployees(@RequestParam(required = false,name="inputAge") Integer age)
+    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false,name="inputAge") Integer age)
     {
-        return employeeRepository.findAll() ;
+        return employeeService.getAllEmployees() ;
     }
 
     @PostMapping
-    public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity inputEmployee)
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployee)
     {
 
-        return employeeRepository.save(inputEmployee);
+        return employeeService.createNewEmployee(inputEmployee);
     }
 
 }
