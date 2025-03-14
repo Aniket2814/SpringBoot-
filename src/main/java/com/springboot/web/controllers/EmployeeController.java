@@ -7,7 +7,7 @@ import com.springboot.web.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping(path="/employees")
@@ -49,9 +49,14 @@ public class EmployeeController {
     return employeeService.updateEmployeeById(employeeDTO,employeeId);
 }
 @DeleteMapping(path="/{employeeId}")
-    public void deleteById(@PathVariable Long employeeId)
+    public boolean deleteById(@PathVariable Long employeeId)
 {
-    employeeService.deleteById(employeeId);
+   return employeeService.deleteById(employeeId);
+}
+@PatchMapping(path="/{employeeId}")
+    public EmployeeDTO updatePartialEmployeeById(@RequestBody Map<String,Object> updates ,@PathVariable  Long employeeId)
+{
+return employeeService.updatePartialEmployeeById(updates ,employeeId);
 }
 
 }
