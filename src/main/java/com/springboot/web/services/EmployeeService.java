@@ -41,4 +41,11 @@ private final ModelMapper modelMapper;
 
         return modelMapper.map(savedemployeeEntity,EmployeeDTO.class);
     }
+
+    public EmployeeDTO updateEmployeeById(EmployeeDTO employeeDTO, Long employeeId) {
+EmployeeEntity employeeEntity=modelMapper.map(employeeDTO,EmployeeEntity.class);
+employeeEntity.setId(employeeId);
+    EmployeeEntity savedEmployeeEntity=employeeRepository.save(employeeEntity);
+   return modelMapper.map(savedEmployeeEntity,EmployeeDTO.class);
+    }
 }
