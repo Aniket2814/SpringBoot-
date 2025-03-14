@@ -43,9 +43,19 @@ private final ModelMapper modelMapper;
     }
 
     public EmployeeDTO updateEmployeeById(EmployeeDTO employeeDTO, Long employeeId) {
-EmployeeEntity employeeEntity=modelMapper.map(employeeDTO,EmployeeEntity.class);
-employeeEntity.setId(employeeId);
-    EmployeeEntity savedEmployeeEntity=employeeRepository.save(employeeEntity);
-   return modelMapper.map(savedEmployeeEntity,EmployeeDTO.class);
+//EmployeeEntity employeeEntity=modelMapper.map(employeeDTO,EmployeeEntity.class);
+//employeeEntity.setId(employeeId);
+//    EmployeeEntity savedEmployeeEntity=employeeRepository.save(employeeEntity);
+//   return modelMapper.map(savedEmployeeEntity,EmployeeDTO.class);
+        EmployeeEntity employeeEntity = modelMapper.map(employeeDTO, EmployeeEntity.class);
+        employeeEntity.setId(employeeId);
+        EmployeeEntity savedEmployeeEntity = employeeRepository.save(employeeEntity);
+        return modelMapper.map(savedEmployeeEntity, EmployeeDTO.class);
     }
+
+    public void deleteById(Long employeeId) {
+   employeeRepository.deleteById(employeeId);
+   System.out.println("Item is Succesfully Deleted");
+    }
+
 }
