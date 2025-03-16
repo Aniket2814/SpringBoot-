@@ -4,6 +4,7 @@ import com.springboot.web.dto.EmployeeDTO;
 import com.springboot.web.entities.EmployeeEntity;
 import com.springboot.web.repositories.EmployeeRepository;
 import com.springboot.web.services.EmployeeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -25,10 +26,13 @@ public class EmployeeController {
     }
 
     @GetMapping("{employeeId}")
-    public EmployeeDTO getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
+    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable(name="employeeId" ) Long Id)
     {
 
-        return employeeService.getEmployeeById(Id);
+        Optional<EmployeeDTO> employeeDTO=employeeService.getEmployeeById(Id);
+     return  employeeDTO.map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1)).orElse(ResponseEntity.notFound().build());
+
+
     }
 
     @GetMapping
